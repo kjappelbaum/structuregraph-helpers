@@ -4,7 +4,17 @@ from typing import Iterable, Tuple
 
 import networkx as nx
 import yaml
-from pymatgen.analysis.local_env import CutOffDictNN
+from pymatgen.analysis.graphs import StructureGraph
+from pymatgen.analysis.local_env import (
+    BrunnerNN_relative,
+    CrystalNN,
+    CutOffDictNN,
+    EconNN,
+    MinimumDistanceNN,
+    NearNeighbors,
+    VoronoiNN,
+)
+from pymatgen.core import Structure
 
 _THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -12,11 +22,76 @@ _THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 with open(os.path.join(_THIS_DIR, "data", "tuned_vesta.yml"), "r", encoding="utf8") as handle:
     _VESTA_CUTOFFS = yaml.load(handle, Loader=yaml.UnsafeLoader)  # noqa: S506
 
+
+with open(os.path.join(_THIS_DIR, "data", "atom_typing_radii.yml"), "r") as handle:
+    _ATOM_TYPING_CUTOFFS = yaml.load(handle, Loader=yaml.UnsafeLoader)
+
+
+with open(os.path.join(_THIS_DIR, "data", "li_radii.yml"), "r") as handle:
+    _LI_TYPING_CUTOFFS = yaml.load(handle, Loader=yaml.UnsafeLoader)
+
+
 #: :obj:`CutOffDictNN` :
 #: Hand-tuned cutoff values for based on the original ones in pymatgen.
 VestaCutoffDictNN = CutOffDictNN(cut_off_dict=_VESTA_CUTOFFS)
 
-__all__ = ("get_nx_graph_from_edge_tuples", "VestaCutoffDictNN")
+#: :obj:`CutOffDictNN` :
+#: Atomic typing radii.
+ATRCutoffDictNN = CutOffDictNN(cut_off_dict=_ATOM_TYPING_CUTOFFS)
+
+#: :obj:`CutOffDictNN` :
+#: Lennard-Jones cutoff radii.
+LICutoffDictNN = CutOffDictNN(cut_off_dict=_LI_TYPING_CUTOFFS)
+
+
+__all__ = (
+    "get_nx_graph_from_edge_tuples",
+    "VestaCutoffDictNN",
+    "ATRCutoffDictNN",
+    "LICutoffDictNN",
+    "get_local_env_method",
+)
+
+
+def get_local_env_method(method: str) -> NearNeighbors:
+    """Get a local environment method based on its name.
+
+    Args:
+        method: Name of the method.
+
+    Returns:
+        NearNeighbors: Local environment method.
+
+    Example:
+        >>> from structuregraph_helpers import get_local_env_method
+        >>> get_local_env_method("voronoi")
+        <pymatgen.analysis.local_env.VoronoiNN object at 0x...>
+    """
+    method = method.lower()
+
+    if method.lower() == "crystalnn":
+        # see eq. 15 and 16 in
+        # https://pubs.acs.org/doi/full/10.1021/acs.inorgchem.0c02996
+        # for the x_diff_weight parameter.
+        # in the paper it is called δen and it is set to 3
+        # we found better results by lowering this weight
+        return CrystalNN(porous_adjustment=True, x_diff_weight=1.5, search_cutoff=4.5)
+    if method.lower() == "econnn":
+        return EconNN()
+    if method.lower() == "brunnernn":
+        return BrunnerNN_relative()
+    if method.lower() == "minimumdistance":
+        return MinimumDistanceNN()
+    if method.lower() == "vesta":
+        return VestaCutoffDictNN
+    if method.lower() == "voronoinn":
+        return VoronoiNN()
+    if method.lower() == "atr":
+        return ATRCutoffDictNN
+    if method.lower() == "li":
+        return LICutoffDictNN
+
+    return VoronoiNN()
 
 
 def get_nx_graph_from_edge_tuples(edge_tuples: Iterable[Tuple[int, int]]) -> nx.Graph:
@@ -35,4 +110,19 @@ def get_nx_graph_from_edge_tuples(edge_tuples: Iterable[Tuple[int, int]]) -> nx.
     """
     graph = nx.Graph()
     graph.add_edges_from(edge_tuples)
+    return graph
+
+
+def construct_clean_graph(structure: Structure, structure_graph: StructureGraph) -> nx.Graph:
+    """Creates a undirected networkx graph with atom numbers and coordination numbers as node attributes."""
+    edges = {(u, v, d) for u, v, d in structure_graph.graph.edges(keys=False, data=True)}
+    graph = nx.Graph()
+    graph.add_edges_from(edges)
+    for node in graph.nodes:
+
+        graph.nodes[node]["specie"] = str(structure[node].specie)
+        graph.nodes[node]["specie-cn"] = (
+            str(structure[node].specie) + "-" + str(structure_graph.get_coordination_of_site(node))
+        )
+
     return graph

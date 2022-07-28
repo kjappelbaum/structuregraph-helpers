@@ -1,6 +1,11 @@
 from pymatgen.analysis.graphs import StructureGraph
 
-from structuregraph_helpers.create import VestaCutoffDictNN, get_nx_graph_from_edge_tuples
+from structuregraph_helpers.create import (
+    VestaCutoffDictNN,
+    get_nx_graph_from_edge_tuples,
+    get_local_env_method,
+    construct_clean_graph,
+)
 
 
 def test_vesta_cutoffs(ag_n_structure):
@@ -8,6 +13,9 @@ def test_vesta_cutoffs(ag_n_structure):
     # The default cutoffs didn't get this right (https://github.com/kjappelbaum/moffragmentor/issues/61)
     sg = StructureGraph.with_local_env_strategy(ag_n_structure, VestaCutoffDictNN)
     assert len(sg.get_connected_sites(0)) == 6
+    assert sg == StructureGraph.with_local_env_strategy(
+        ag_n_structure, get_local_env_method("vesta")
+    )
 
 
 def test_get_nx_graph_from_edge_tuples():
@@ -15,3 +23,6 @@ def test_get_nx_graph_from_edge_tuples():
     graph = get_nx_graph_from_edge_tuples(edge_tuples)
     assert len(graph.nodes) == 2
     assert len(graph.edges) == 3  # (0,0), (0,1), (1,1)
+
+
+def test_construct_clean_graph()
