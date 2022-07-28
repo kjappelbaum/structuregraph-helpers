@@ -7,7 +7,7 @@ from pymatgen.core import Lattice, Structure
 _THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def bcc_graph():
     """Example strcture graph taken from pymatgen tests."""
     structure = Structure(Lattice.tetragonal(5.0, 50.0), ["H", "He"], [[0, 0, 0], [0.5, 0.5, 0.5]])

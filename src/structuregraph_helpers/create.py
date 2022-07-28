@@ -18,7 +18,20 @@ with open(os.path.join(_THIS_DIR, "data", "tuned_vesta.yml"), "r", encoding="utf
 VestaCutoffDictNN = CutOffDictNN(cut_off_dict=_VESTA_CUTOFFS)
 
 
-def get_nx_graph_from_edge_tuples(edge_tuples: Iterable[Tuple[int, int]]):
+def get_nx_graph_from_edge_tuples(edge_tuples: Iterable[Tuple[int, int]]) -> nx.Graph:
+    """Create a undirected graph from a list of edge tuples.
+
+    Args:
+        edge_tuples: List of edge tuples.
+
+    Returns:
+        nx.Graph: Undirected graph.
+
+    Example:
+        >>> from structuregraph_helpers import get_nx_graph_from_edge_tuples
+        >>> get_nx_graph_from_edge_tuples([(0, 0), (0, 1), (1, 0), (1, 1)])
+        Graph(2 nodes, 3 edges)
+    """
     graph = nx.Graph()
     graph.add_edges_from(edge_tuples)
     return graph
