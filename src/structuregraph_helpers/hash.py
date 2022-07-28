@@ -32,7 +32,7 @@ def generate_hash(g: nx.Graph, node_decorated: bool, edge_decorated: bool, itera
 def undecorated_graph_hash(structure_graph: StructureGraph, lqg: bool = True) -> str:
     """Create a undecorated hash string for a StructureGraph.
 
-    Undecorated means that the hash is not based on the structure graph,
+    Undecorated means that the hash is  based on the structure graph,
     but ignoring the atomic species.
 
     Args:
@@ -79,7 +79,7 @@ def decorated_graph_hash(structure_graph: StructureGraph, lqg: bool = True) -> s
 def undecorated_no_leaf_hash(structure_graph: StructureGraph, lqg: bool = True) -> str:
     """Create a undecorated no-leaf hash string for a StructureGraph.
 
-    Undecorated means that the hash is not based on the structure graph,
+    Undecorated means that the hash is  based on the structure graph,
     but ignoring the atomic species.
     No-leaf means that leaf nodes are not included in the hash computation.
 
@@ -126,9 +126,53 @@ def decorated_no_leaf_hash(structure_graph: StructureGraph, lqg: bool = True) ->
     return generate_hash(g, node_decorated, edge_decorated, iterations=6)
 
 
-def undecorated_scaffold_hash():
-    ...
+def undecorated_scaffold_hash(structure_graph: StructureGraph, lqg: bool = True) -> str:
+    """Create a undecorated scaffold hash string for a StructureGraph.
+
+    Undecorated means that the hash is based on the structure graph,
+    but ignoring the atomic species.
+    Scaffold means that the subgraphs that are connected via a bridge to the main
+    framenwork are not included in the hash computation.
+
+    Args:
+        structure_graph (StructureGraph): pymatgen StructureGraph
+        lqg (bool): If True, computed the hash on the labeled quotient graph.
+            Otherwise, computed the hash on the undirected quotient graph.
+
+    Returns:
+        str: Hash string for the StructureGraph.
+    """
+    sg, _ = get_structure_graph_with_broken_bridges(structure_graph)
+    if lqg:
+        g = construct_clean_graph(sg, multigraph=True, directed=True)
+    else:
+        g = construct_clean_graph(sg)
+    edge_decorated = True if lqg else False
+    node_decorated = False
+    return generate_hash(g, node_decorated, edge_decorated, iterations=6)
 
 
-def decorated_scaffold_hash():
-    ...
+def decorated_scaffold_hash(structure_graph: StructureGraph, lqg: bool = True) -> str:
+    """Create a decorated scaffold hash string for a StructureGraph.
+
+    Decorated means that the hash is based on the structure graph,
+    and the atomic species.
+    Scaffold means that the subgraphs that are connected via a bridge to the main
+    framenwork are not included in the hash computation.
+
+    Args:
+        structure_graph (StructureGraph): pymatgen StructureGraph
+        lqg (bool): If True, computed the hash on the labeled quotient graph.
+            Otherwise, computed the hash on the undirected quotient graph.
+
+    Returns:
+        str: Hash string for the StructureGraph.
+    """
+    sg, _ = get_structure_graph_with_broken_bridges(structure_graph)
+    if lqg:
+        g = construct_clean_graph(sg, multigraph=True, directed=True)
+    else:
+        g = construct_clean_graph(sg)
+    edge_decorated = True if lqg else False
+    node_decorated = True
+    return generate_hash(g, node_decorated, edge_decorated, iterations=6)

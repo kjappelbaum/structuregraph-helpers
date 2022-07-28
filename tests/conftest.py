@@ -53,3 +53,18 @@ def hkust_graph():
         Structure.from_file(os.path.join(_THIS_DIR, "test_files", "HKUST-1.cif")),
         VestaCutoffDictNN,
     )
+
+
+@pytest.fixture(scope="session")
+def mof_74_zr():
+    return Structure.from_file(os.path.join(_THIS_DIR, "test_files", "MOF-74-Zr.cif"))
+
+
+@pytest.fixture(scope="session")
+def mof_74_zn():
+    return Structure.from_file(os.path.join(_THIS_DIR, "test_files", "MOF-74-Zn.cif"))
+
+
+@pytest.fixture(scope="session")
+def mof_74_zr_nh2():
+    return Structure.from_file(os.path.join(_THIS_DIR, "test_files", "MOF-74-Zr-NH2.cif"))
