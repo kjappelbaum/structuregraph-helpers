@@ -7,6 +7,8 @@ import numpy as np
 from pymatgen.analysis.graphs import MoleculeGraph, StructureGraph
 from pymatgen.core import Element, Molecule, Structure
 
+__all__ = ("get_subgraphs_as_molecules",)
+
 
 def _is_in_cell(frac_coords: np.ndarray) -> bool:
     return (frac_coords <= 1).all()
@@ -16,13 +18,13 @@ def _is_any_atom_in_cell(frac_coords: np.ndarray) -> bool:
     return any(_is_in_cell(row) for row in frac_coords)
 
 
-def get_mass(atomic_symbol: str) -> float:
-
+def _get_mass(atomic_symbol: str) -> float:
     elem = Element(atomic_symbol)
     return elem.atomic_mass
 
 
 def com(xyz: np.ndarray, mass: np.ndarray) -> float:
+    """Compute the center of mass of a set of atoms."""
     mass = mass.reshape((-1, 1))
     return (xyz * mass).mean(0)
 
@@ -74,7 +76,14 @@ def get_subgraphs_as_molecules(  # noqa:C901
     """Isolates connected components as molecules from a StructureGraph.
 
     Copied from http://pymatgen.org/_modules/pymatgen/analysis/graphs.html#StructureGraph.get_subgraphs_as_molecules
-    and removed the duplicate check
+    and removed the duplicate check and added pruning of long edges that seem to cause
+    issues in some cases.
+
+    This function also returns more info than the original function.
+
+    .. warning::
+
+        This edge pruning is a hack and should be removed when the underlying issue is fixed.
 
     Args:
         structure_graph (StructureGraph): Structuregraph
@@ -103,7 +112,19 @@ def get_subgraphs_as_molecules(  # noqa:C901
     sg = structure_graph.__copy__()
     sg.structure = Structure.from_sites(sg.structure.sites)
 
+    try:
+        node_attributes = nx.get_node_attributes(sg.graph, "idx")
+        if len(node_attributes) == 0:
+            raise KeyError("No node attributes found")
+    except KeyError:
+        nx.set_node_attributes(
+            sg.graph,
+            name="idx",
+            values=dict(zip(range(len(structure_graph)), range(len(structure_graph)))),
+        )
+
     # This the __mul__ method seems buggy.
+    # potentially this issue here https://github.com/materialsproject/pymatgen/issues/1309
     supercell_sg = sg * (3, 3, 3)
     s_indices = np.arange(len(supercell_sg.structure))
     nx.set_node_attributes(
@@ -116,7 +137,7 @@ def get_subgraphs_as_molecules(  # noqa:C901
     if prune_long_edges:
         edges_to_remove = []
         for u, v, _ in supercell_sg.graph.edges(data=True):
-            # if (d['to_jimage'] == (0, 0, 0)) or (u in nodes_in_center) or (v in nodes_in_center):
+            # ToDo: make this dependent on the cutoffidct
             if (
                 np.linalg.norm(
                     supercell_sg.graph.nodes(data=True)[u]["coords"]
@@ -187,13 +208,13 @@ def get_subgraphs_as_molecules(  # noqa:C901
         coordinates = []
         for subgraph in molecule_subgraphs:
             idx = [subgraph.nodes[n]["idx"] for n in subgraph.nodes()]
-            coords = [subgraph.nodes()[i]["coord"] for i in subgraph.nodes()]
+            coords = np.array([subgraph.nodes()[i]["coord"] for i in subgraph.nodes()])
             species = [supercell_sg.structure[n].specie for n in subgraph.nodes()]
             idx_here = list(subgraph.nodes())
             molecule = Molecule(species, coords)  # site_properties={"binding": binding}
 
             masses = np.array(
-                [get_mass(str(supercell_sg.structure[idx].specie)) for idx in idx_here]
+                [_get_mass(str(supercell_sg.structure[idx].specie)) for idx in idx_here]
             )
             mol_centers.append(com(supercell_sg.structure.cart_coords[idx_here], masses))
             # shift so origin is at center of mass

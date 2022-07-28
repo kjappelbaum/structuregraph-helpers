@@ -3,6 +3,7 @@ import os
 import pytest
 from pymatgen.analysis.graphs import StructureGraph
 from pymatgen.core import Lattice, Structure
+from structuregraph_helpers.create import VestaCutoffDictNN
 
 _THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -30,3 +31,16 @@ def bcc_graph():
 def ag_n_structure():
     """https://www.ccdc.cam.ac.uk/structures/Search?Ccdcid=PAVLOO"""
     return Structure.from_file(os.path.join(_THIS_DIR, "test_files", "RSM0956.cif"))
+
+
+@pytest.fixture(scope="session")
+def floating_hkust():
+    return Structure.from_file(os.path.join(_THIS_DIR, "test_files", "HKUST_floating.cif"))
+
+
+@pytest.fixture(scope="session")
+def floating_hkust_graph():
+    return StructureGraph.with_local_env_strategy(
+        Structure.from_file(os.path.join(_THIS_DIR, "test_files", "HKUST_floating.cif")),
+        VestaCutoffDictNN,
+    )

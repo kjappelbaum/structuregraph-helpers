@@ -5,6 +5,8 @@ import networkx as nx
 from pymatgen.analysis.dimensionality import get_dimensionality_larsen
 from pymatgen.analysis.graphs import StructureGraph
 
+__all__ = ["get_structure_graph_dimensionality", "get_leaf_nodes"]
+
 
 def get_leaf_nodes(graph: nx.Graph) -> List[int]:
     """For a graph, return the indices of the leaf nodes.

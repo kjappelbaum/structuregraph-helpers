@@ -4,6 +4,8 @@ from typing import Iterable
 from pymatgen.analysis.graphs import StructureGraph
 from pymatgen.core import Structure
 
+__all__ = ("remove_all_nodes_not_in_indices",)
+
 
 def remove_all_nodes_not_in_indices(graph: StructureGraph, indices: Iterable[int]) -> None:
     """Remove all nodes that are *not* in the given indices
