@@ -41,3 +41,21 @@ def get_structure_graph_dimensionality(structure_graph: StructureGraph) -> int:
             <https://doi.org/10.1103/physrevmaterials.3.034003>`_
     """
     return get_dimensionality_larsen(structure_graph)
+
+
+def get_cn(structure_graph: StructureGraph, site_index: int) -> int:
+    """Get the coordination number of a site.
+
+    Args:
+        structure_graph (StructureGraph): pymatgen StructureGraph
+        site_index (int): index of the site
+
+    Returns:
+        int: coordination number of the site
+
+    Example:
+        >>> from structuregraph_helpers.analysis import get_cn
+        >>> get_cn(structure_graph, 0)
+        3
+    """
+    return len(structure_graph.get_connected_sites(site_index))
