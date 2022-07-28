@@ -1,0 +1,18 @@
+{
+  "template": "https://github.com/kjappelbaum/cookiecutter-snekpack",
+  "commit": "e0fe55062845f481677103047b385a44a72ab7c1",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "package_name": "structuregraph_helpers",
+      "package_name_stylized": "structuregraph_helpers",
+      "short_description": "Utilities for working with structure graphs",
+      "author_name": "Kevin M. Jablonka",
+      "author_email": "mail@kjablonka.com",
+      "github_organization_name": "kjappelbaum",
+      "github_repository_name": "structuregraph-helpers",
+      "_template": "https://github.com/kjappelbaum/cookiecutter-snekpack"
+    }
+  },
+  "directory": null
+}
