@@ -49,7 +49,7 @@ def test_construct_clean_graph(bcc_graph):
     assert len(graph.edges) == 2
 
     for _, _, d in graph.edges(data=True):
-        assert isinstance(d["to_jimage"], tuple)
+        assert isinstance(d["voltage"], tuple)
 
     for node in graph.nodes:
         assert isinstance(graph.nodes[node]["specie"], str)

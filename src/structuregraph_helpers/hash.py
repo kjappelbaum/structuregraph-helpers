@@ -24,7 +24,7 @@ def generate_hash(g: nx.Graph, node_decorated: bool, edge_decorated: bool, itera
     if node_decorated:
         node_attr = "specie"
     if edge_decorated:
-        edge_attr = "to_jimage"
+        edge_attr = "voltage"
     return weisfeiler_lehman_graph_hash(
         g, iterations=iterations, edge_attr=edge_attr, node_attr=node_attr
     )
