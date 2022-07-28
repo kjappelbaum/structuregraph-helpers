@@ -36,7 +36,11 @@ Utilities for working with `pymatgen` structure graphs.
 
 ## 💪 Getting Started
 
+```python
+import structuregraph_helpers as sgh
 
+mols, graphs, indices, centers, coordinates = sgh.subgraphg.get_subgraphs_as_molecules(structuregraph)
+```
 
 ## 🚀 Installation
 
