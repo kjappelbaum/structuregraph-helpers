@@ -40,6 +40,9 @@ Utilities for working with `pymatgen` structure graphs.
 import structuregraph_helpers as sgh
 
 mols, graphs, indices, centers, coordinates = sgh.subgraphg.get_subgraphs_as_molecules(structuregraph)
+
+graph_hash = sgh.hash.decorated_graph_hash(structuregraph)
+scaffold_hash = sgh.hash.decorated_scaffold_hash(structuregraph)
 ```
 
 ## 🚀 Installation
