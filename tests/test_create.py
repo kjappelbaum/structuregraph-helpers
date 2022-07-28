@@ -1,10 +1,11 @@
-from pymatgen.analysis.graphs import StructureGraph
 import networkx as nx
+from pymatgen.analysis.graphs import StructureGraph
+
 from structuregraph_helpers.create import (
     VestaCutoffDictNN,
-    get_nx_graph_from_edge_tuples,
-    get_local_env_method,
     construct_clean_graph,
+    get_local_env_method,
+    get_nx_graph_from_edge_tuples,
 )
 
 
@@ -26,7 +27,7 @@ def test_get_nx_graph_from_edge_tuples():
 
 
 def test_construct_clean_graph(bcc_graph):
-    """The original edges are
+    """The original edges are:
 
     0 0 {'to_jimage': (1, 0, 0)}
     0 0 {'to_jimage': (0, 1, 0)}
@@ -47,7 +48,7 @@ def test_construct_clean_graph(bcc_graph):
     assert len(graph.nodes) == 2
     assert len(graph.edges) == 2
 
-    for u, v, d in graph.edges(data=True):
+    for _, _, d in graph.edges(data=True):
         assert isinstance(d["to_jimage"], tuple)
 
     for node in graph.nodes:

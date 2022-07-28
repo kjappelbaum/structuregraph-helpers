@@ -24,6 +24,7 @@ exclude =
     .cache,
     .eggs,
     data
+    */_hasher.py
 max-line-length = 120
 max-complexity = 20
 import-order-style = pycharm

@@ -1,9 +1,10 @@
 """Create hash strings for structure graphs."""
-from .hasher import weisfeiler_lehman_graph_hash
 import networkx as nx
 from pymatgen.analysis.graphs import StructureGraph
+
 from .create import construct_clean_graph
-from .delete import get_structure_graph_without_leaf_nodes, get_structure_graph_with_broken_bridges
+from .delete import get_structure_graph_with_broken_bridges, get_structure_graph_without_leaf_nodes
+from ._hasher import weisfeiler_lehman_graph_hash
 
 
 def generate_hash(g: nx.Graph, node_decorated: bool, edge_decorated: bool, iterations: int) -> str:

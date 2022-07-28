@@ -14,7 +14,6 @@ from pymatgen.analysis.local_env import (
     NearNeighbors,
     VoronoiNN,
 )
-from pymatgen.core import Structure
 
 _THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -24,11 +23,11 @@ with open(os.path.join(_THIS_DIR, "data", "tuned_vesta.yml"), "r", encoding="utf
 
 
 with open(os.path.join(_THIS_DIR, "data", "atom_typing_radii.yml"), "r") as handle:
-    _ATOM_TYPING_CUTOFFS = yaml.load(handle, Loader=yaml.UnsafeLoader)
+    _ATOM_TYPING_CUTOFFS = yaml.load(handle, Loader=yaml.UnsafeLoader)  # noqa: S506
 
 
 with open(os.path.join(_THIS_DIR, "data", "li_radii.yml"), "r") as handle:
-    _LI_TYPING_CUTOFFS = yaml.load(handle, Loader=yaml.UnsafeLoader)
+    _LI_TYPING_CUTOFFS = yaml.load(handle, Loader=yaml.UnsafeLoader)  # noqa: S506
 
 
 #: :obj:`CutOffDictNN` :
@@ -123,8 +122,15 @@ def construct_clean_graph(
         If you choose directed=True, but multigraph=False, there might be fewer
         edges than you intuitively expec as we do not flip the direction
         based on the edge data.
-    """
 
+    Args:
+        structure_graph (StructureGraph): StructureGraph to convert.
+        multigraph (bool): Whether to use return a multigraph.
+        directed (bool): Whether to use return adirected graph.
+
+    Returns:
+        nx.Graph: Networkx graph.
+    """
     if multigraph:
         if directed:
             graph = nx.MultiDiGraph()

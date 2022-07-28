@@ -1,6 +1,5 @@
 import networkx as nx
 from pymatgen.analysis.graphs import StructureGraph
-from xxlimited import new
 
 from structuregraph_helpers.delete import (
     get_structure_graph_without_leaf_nodes,

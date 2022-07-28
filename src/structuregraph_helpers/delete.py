@@ -33,7 +33,7 @@ def get_structure_graph_without_leaf_nodes(
     structure_graph: StructureGraph,
 ) -> Tuple[StructureGraph, nx.Graph]:
     """
-    Returns a StructureGraph without leaf nodes.
+    Return a StructureGraph without leaf nodes.
 
     Args:
         structure_graph (StructureGraph): pymatgen StructureGraph
@@ -72,7 +72,7 @@ def get_structure_graph_with_broken_bridges(
     structure_graph: StructureGraph,
 ) -> Tuple[StructureGraph, nx.Graph]:
     """
-    Returns a StructureGraph without the small subgraphs one obtains after breaking edges.
+    Return a StructureGraph without the small subgraphs one obtains after breaking edges.
 
     In chemical terms, this is supposed to remove hydrogen atoms and functional groups.
 
@@ -99,7 +99,8 @@ def get_structure_graph_with_broken_bridges(
     subgraphs_len = [len(sg) for sg in subgraphs]
     longest_subgraph = np.argmax(subgraphs_len)
 
-    # going via remove nodes seems easier than removing the edges (for which we'd need to deal with the periodic attributes)
+    # going via remove nodes seems easier than removing the edges
+    # (for which we'd need to deal with the periodic attributes)
     to_delete = []
     for i, sg in enumerate(subgraphs):
         if i != longest_subgraph:
