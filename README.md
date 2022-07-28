@@ -32,35 +32,21 @@
     </a>
 </p>
 
-Utilities for working with structure graphs
+Utilities for working with `pymatgen` structure graphs.
 
 ## 💪 Getting Started
 
-> TODO show in a very small amount of space the **MOST** useful thing your package can do.
-Make it as short as possible! You have an entire set of docs for later.
 
-### Command Line Interface
-
-The structuregraph_helpers command line tool is automatically installed. It can
-be used from the shell with the `--help` flag to show all subcommands:
-
-```shell
-$ structuregraph_helpers --help
-```
-
-> TODO show the most useful thing the CLI does! The CLI will have documentation auto-generated
-by `sphinx`.
 
 ## 🚀 Installation
 
-<!-- Uncomment this section after your first ``tox -e finish``
 The most recent release can be installed from
 [PyPI](https://pypi.org/project/structuregraph_helpers/) with:
 
 ```bash
 $ pip install structuregraph_helpers
 ```
--->
+
 
 The most recent code and data can be installed directly from GitHub with:
 
@@ -107,9 +93,9 @@ This project has been supported by the following organizations (in alphabetical 
 
 This project has been supported by the following grants:
 
-| Funding Body                                             | Program                                                                                                                       | Grant           |
-|----------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|-----------------|
-| DARPA                                                    | [Automating Scientific Knowledge Extraction (ASKE)](https://www.darpa.mil/program/automating-scientific-knowledge-extraction) | HR00111990009   |
+| Funding Body | Program                                                                                                                       | Grant         |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| DARPA        | [Automating Scientific Knowledge Extraction (ASKE)](https://www.darpa.mil/program/automating-scientific-knowledge-extraction) | HR00111990009 |
 -->
 
 ### 🍪 Cookiecutter
