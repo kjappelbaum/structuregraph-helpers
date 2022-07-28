@@ -1,4 +1,7 @@
-"""Create hash strings for structure graphs."""
+"""Create hash strings for structure graphs.
+
+Note that two LQGs of the same net (crystallographic net) cannot have non-isomorphic unlabeled quotient graphs. Hence, computing a hash of the Weisfeiler-Lehman canonical form of the UQG will yield always lead to too many duplicates, not too few.
+"""
 import networkx as nx
 from pymatgen.analysis.graphs import StructureGraph
 

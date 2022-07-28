@@ -174,7 +174,7 @@ def _voltage(u, v, to_jimage) -> Tuple[int, int, int]:
     """
     terms = (u, v)
     a_image = (0, 0, 0)
-    b_image = to_jimage
+    b_image = (-to_jimage[0], -to_jimage[1], -to_jimage[2])
     imags = (a_image, b_image)
     a_image, b_image = (x for x, _ in sorted(zip(imags, terms), key=lambda x: x[1]))
     return tuple(a_image[i] - b_image[i] for i in range(3))
