@@ -2,9 +2,9 @@
 import networkx as nx
 from pymatgen.analysis.graphs import StructureGraph
 
+from ._hasher import weisfeiler_lehman_graph_hash
 from .create import construct_clean_graph
 from .delete import get_structure_graph_with_broken_bridges, get_structure_graph_without_leaf_nodes
-from ._hasher import weisfeiler_lehman_graph_hash
 
 
 def generate_hash(g: nx.Graph, node_decorated: bool, edge_decorated: bool, iterations: int) -> str:
