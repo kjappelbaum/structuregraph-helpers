@@ -3,6 +3,7 @@ import os
 import pytest
 from pymatgen.analysis.graphs import StructureGraph
 from pymatgen.core import Lattice, Structure
+
 from structuregraph_helpers.create import VestaCutoffDictNN
 
 _THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -10,7 +11,7 @@ _THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
 @pytest.fixture(scope="function")
 def bcc_graph():
-    """Example strcture graph taken from pymatgen tests."""
+    """Return example structure graph taken from pymatgen tests."""
     structure = Structure(Lattice.tetragonal(5.0, 50.0), ["H", "He"], [[0, 0, 0], [0.5, 0.5, 0.5]])
     bc_square_sg_r = StructureGraph.with_empty_graph(
         structure, edge_weight_name="", edge_weight_units=""
@@ -29,7 +30,7 @@ def bcc_graph():
 
 @pytest.fixture(scope="session")
 def ag_n_structure():
-    """https://www.ccdc.cam.ac.uk/structures/Search?Ccdcid=PAVLOO"""
+    """https://www.ccdc.cam.ac.uk/structures/Search?Ccdcid=PAVLOO."""
     return Structure.from_file(os.path.join(_THIS_DIR, "test_files", "RSM0956.cif"))
 
 

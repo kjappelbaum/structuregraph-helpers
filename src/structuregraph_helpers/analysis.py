@@ -35,6 +35,9 @@ def get_structure_graph_dimensionality(structure_graph: StructureGraph) -> int:
         3
 
     References:
-        [Larsen] `Larsen, P. M.; Pandey, M.; Strange, M.; Jacobsen, K. W. Definition of a Scoring Parameter to Identify Low-Dimensional Materials Components. Physical Review Materials, 2019, 3. <https://doi.org/10.1103/physrevmaterials.3.034003>`_
+        [Larsen] `Larsen, P. M.; Pandey, M.; Strange, M.; Jacobsen,
+            K. W. Definition of a Scoring Parameter to Identify Low-Dimensional
+            Materials Components. Physical Review Materials, 2019, 3.
+            <https://doi.org/10.1103/physrevmaterials.3.034003>`_
     """
     return get_dimensionality_larsen(structure_graph)

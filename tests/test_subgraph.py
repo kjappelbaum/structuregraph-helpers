@@ -1,7 +1,8 @@
-from structuregraph_helpers.subgraph import get_subgraphs_as_molecules
-from pymatgen.core import Molecule
-from pymatgen.analysis.graphs import MoleculeGraph
 import numpy as np
+from pymatgen.analysis.graphs import MoleculeGraph
+from pymatgen.core import Molecule
+
+from structuregraph_helpers.subgraph import get_subgraphs_as_molecules
 
 
 def test_get_subgraphs_as_molecules(floating_hkust_graph):

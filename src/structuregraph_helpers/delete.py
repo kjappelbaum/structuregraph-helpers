@@ -8,8 +8,7 @@ __all__ = ("remove_all_nodes_not_in_indices",)
 
 
 def remove_all_nodes_not_in_indices(graph: StructureGraph, indices: Iterable[int]) -> None:
-    """Remove all nodes that are *not* in the given indices
-    from the StructureGraph.
+    """Remove all nodes that are *not* in the given indices from the StructureGraph.
 
     .. note::
 

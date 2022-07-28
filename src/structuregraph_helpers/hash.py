@@ -1,1 +1,1 @@
-""""Create hash strings for structure graphs."""
+"""Create hash strings for structure graphs."""
