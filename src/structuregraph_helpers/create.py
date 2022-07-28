@@ -113,16 +113,37 @@ def get_nx_graph_from_edge_tuples(edge_tuples: Iterable[Tuple[int, int]]) -> nx.
     return graph
 
 
-def construct_clean_graph(structure: Structure, structure_graph: StructureGraph) -> nx.Graph:
-    """Creates a undirected networkx graph with atom numbers and coordination numbers as node attributes."""
-    edges = {(u, v, d) for u, v, d in structure_graph.graph.edges(keys=False, data=True)}
-    graph = nx.Graph()
-    graph.add_edges_from(edges)
+def construct_clean_graph(
+    structure_graph: StructureGraph, multigraph: bool = False, directed: bool = False
+) -> nx.Graph:
+    """Creates a networkx graph with atom numbers and coordination numbers as node attributes.
+
+    .. warning::
+
+        If you choose directed=True, but multigraph=False, there might be fewer
+        edges than you intuitively expec as we do not flip the direction
+        based on the edge data.
+    """
+
+    if multigraph:
+        if directed:
+            graph = nx.MultiDiGraph()
+        else:
+            graph = nx.MultiGraph()
+    else:
+        if directed:
+            graph = nx.DiGraph()
+        else:
+            graph = nx.Graph()
+    for u, v, d in structure_graph.graph.edges(data=True):
+        graph.add_edge(u, v, **d)
     for node in graph.nodes:
 
-        graph.nodes[node]["specie"] = str(structure[node].specie)
+        graph.nodes[node]["specie"] = str(structure_graph.structure[node].specie)
         graph.nodes[node]["specie-cn"] = (
-            str(structure[node].specie) + "-" + str(structure_graph.get_coordination_of_site(node))
+            str(structure_graph.structure[node].specie)
+            + "-"
+            + str(structure_graph.get_coordination_of_site(node))
         )
 
     return graph
