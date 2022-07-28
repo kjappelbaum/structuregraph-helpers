@@ -14,6 +14,7 @@ from pymatgen.analysis.local_env import (
     NearNeighbors,
     VoronoiNN,
 )
+from pymatgen.core import Structure
 
 _THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -49,6 +50,8 @@ __all__ = (
     "ATRCutoffDictNN",
     "LICutoffDictNN",
     "get_local_env_method",
+    "get_structure_graph",
+    "construct_clean_graph",
 )
 
 
@@ -91,6 +94,11 @@ def get_local_env_method(method: str) -> NearNeighbors:
         return LICutoffDictNN
 
     return VoronoiNN()
+
+
+def get_structure_graph(structure: Structure, method: str = "vesta") -> StructureGraph:
+    """Get a structure graph for a structure."""
+    return StructureGraph.with_local_env_strategy(structure, get_local_env_method(method))
 
 
 def get_nx_graph_from_edge_tuples(edge_tuples: Iterable[Tuple[int, int]]) -> nx.Graph:
