@@ -1,10 +1,10 @@
 """Plotting helpers."""
 import plotly.graph_objs as go
 
-__all__ = ("ploty_plot_structure_graph",)
+__all__ = ("plotly_plot_structure_graph",)
 
 
-def ploty_plot_structure_graph(structure_graph, show_edges: bool = True, show_nodes: bool = True):
+def plotly_plot_structure_graph(structure_graph, show_edges: bool = True, show_nodes: bool = True):
     """Plot a StructureGraph using Plotly."""
     node_x = []
     node_y = []
