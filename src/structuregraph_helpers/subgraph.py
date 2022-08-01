@@ -6,6 +6,7 @@ import networkx as nx
 import numpy as np
 from pymatgen.analysis.graphs import MoleculeGraph, StructureGraph
 from pymatgen.core import Element, Molecule, Structure
+import warnings
 
 __all__ = ("get_subgraphs_as_molecules",)
 
@@ -117,6 +118,7 @@ def get_subgraphs_as_molecules(  # noqa:C901
         if len(node_attributes) == 0:
             raise KeyError("No node attributes found")
     except KeyError:
+        warnings.warn("No node attributes found. Using indices as node attributes.")
         nx.set_node_attributes(
             sg.graph,
             name="idx",

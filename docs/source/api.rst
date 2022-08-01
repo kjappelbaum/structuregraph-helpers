@@ -28,6 +28,6 @@ Subgraph
     :members:
 
 Hash
---------
+------- -
 .. automodule:: structuregraph_helpers.hash
     :members:

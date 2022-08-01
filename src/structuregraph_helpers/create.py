@@ -98,7 +98,13 @@ def get_local_env_method(method: str) -> NearNeighbors:
 
 def get_structure_graph(structure: Structure, method: str = "vesta") -> StructureGraph:
     """Get a structure graph for a structure."""
-    return StructureGraph.with_local_env_strategy(structure, get_local_env_method(method))
+    sg = StructureGraph.with_local_env_strategy(structure, get_local_env_method(method))
+    nx.set_node_attributes(
+        sg.graph,
+        name="idx",
+        values=dict(zip(range(len(sg)), range(len(sg)))),
+    )
+    return sg
 
 
 def get_nx_graph_from_edge_tuples(edge_tuples: Iterable[Tuple[int, int]]) -> nx.Graph:
