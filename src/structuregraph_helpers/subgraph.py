@@ -1,4 +1,5 @@
 """Extract subgraphs from structure graphs."""
+import warnings
 from collections import defaultdict
 from typing import List, Tuple
 
@@ -6,7 +7,6 @@ import networkx as nx
 import numpy as np
 from pymatgen.analysis.graphs import MoleculeGraph, StructureGraph
 from pymatgen.core import Element, Molecule, Structure
-import warnings
 
 __all__ = ("get_subgraphs_as_molecules",)
 
