@@ -129,7 +129,7 @@ def get_nx_graph_from_edge_tuples(edge_tuples: Iterable[Tuple[int, int]]) -> nx.
 def construct_clean_graph(
     structure_graph: StructureGraph, multigraph: bool = False, directed: bool = False
 ) -> nx.Graph:
-    """Creates a networkx graph with atom numbers and coordination numbers as node attributes.
+    """Create a networkx graph with atom numbers and coordination numbers as node attributes.
 
     .. warning::
 
@@ -174,6 +174,11 @@ def _voltage(u, v, to_jimage) -> Tuple[int, int, int]:
     """Voltage is the tuple describing the direction of the edge.
 
     In simple words, it represents the translation operation.
+
+    Args:
+        u (int): Start node.
+        v (int): End node.
+        to_jimage (Tuple[int, int, int]): Translation operation.
 
     Returns:
         Tuple[int, int, int]: The voltage of the edge.

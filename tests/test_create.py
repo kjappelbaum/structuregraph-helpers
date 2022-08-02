@@ -27,7 +27,7 @@ def test_get_nx_graph_from_edge_tuples():
 
 
 def test_construct_clean_graph(bcc_graph):
-    """The original edges are:
+    """The original edges are: # noqa: D400
 
     0 0 {'to_jimage': (1, 0, 0)}
     0 0 {'to_jimage': (0, 1, 0)}
