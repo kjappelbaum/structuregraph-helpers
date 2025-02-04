@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from pymatgen.analysis.graphs import StructureGraph
 
 from structuregraph_helpers.analysis import get_cn, get_dimensionality_larsen, get_leaf_nodes

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Helpers for analysing structure graphs."""
 from typing import List
 

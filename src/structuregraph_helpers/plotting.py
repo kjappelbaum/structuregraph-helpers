@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Plotting helpers."""
 import plotly.graph_objs as go
 

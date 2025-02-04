@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Helpers for creating graphs."""
 import os
 from typing import Iterable, Tuple

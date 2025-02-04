@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Create hash strings for structure graphs.
 
 Note that two LQGs of the same net (crystallographic net)

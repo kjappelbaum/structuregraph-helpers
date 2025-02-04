@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 """
-Code below is taken from networkx. 
+Code below is taken from networkx.
 
-License: 
+License:
 
 NetworkX is distributed with the 3-clause BSD license.
 
