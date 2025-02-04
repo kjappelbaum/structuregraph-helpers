@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import networkx as nx
 from pymatgen.analysis.graphs import StructureGraph
 

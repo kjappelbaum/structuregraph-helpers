@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from pymatgen.analysis.graphs import StructureGraph
 from pymatgen.transformations.standard_transformations import RotationTransformation
 

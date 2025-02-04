@@ -13,7 +13,7 @@
         <img alt="Tests" src="https://github.com/kjappelbaum/structuregraph-helpers/workflows/Tests/badge.svg" />
     </a>
     <a href="https://github.com/cthoyt/cookiecutter-python-package">
-        <img alt="Cookiecutter template from @cthoyt" src="https://img.shields.io/badge/Cookiecutter-python--package-yellow" /> 
+        <img alt="Cookiecutter template from @cthoyt" src="https://img.shields.io/badge/Cookiecutter-python--package-yellow" />
     </a>
     <a href="https://pypi.org/project/structuregraph_helpers">
         <img alt="PyPI" src="https://img.shields.io/pypi/v/structuregraph_helpers" />
@@ -116,7 +116,7 @@ This package was created with [@audreyfeldroy](https://github.com/audreyfeldroy)
 <details>
   <summary>See developer instrutions</summary>
 
-  
+
 The final section of the README is for if you want to get involved by making a code contribution.
 
 ### ❓ Testing

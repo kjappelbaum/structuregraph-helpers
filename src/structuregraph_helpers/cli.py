@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Command-line interface for StructureGraphHelpers."""
 import concurrent.futures
 import os

@@ -33,10 +33,10 @@ Hash
 
 
 
-Logging 
+Logging
 ---------
 
-structuregraph_helpers uses the `loguru <https://loguru.readthedocs.io/en/stable/index.html>`_  for logging. 
+structuregraph_helpers uses the `loguru <https://loguru.readthedocs.io/en/stable/index.html>`_  for logging.
 By default, logging from structuregraph_helpers is disabled to not interfere with your logs.
 
 However, you can easily customize the logging:
@@ -46,17 +46,17 @@ However, you can easily customize the logging:
     import sys
     from loguru import logger
 
-    # enable structuregraph_helpers logging 
+    # enable structuregraph_helpers logging
     logger.enable("structuregraph_helpers")
-    
+
     # define the logging level
     LEVEL = "INFO || DEBUG || WARNING || etc."
 
     # set the handler
     # for logging to stdout
-    logger.add(sys.stdout, level=LEVEL) 
+    logger.add(sys.stdout, level=LEVEL)
     # or for logging to a file
-    logger.add("my_log_file.log", level=LEVEL, enqueue=True) 
+    logger.add("my_log_file.log", level=LEVEL, enqueue=True)
 
 
 In many cases, however, you might find it convenient to simply call :py:meth:`~structuregraph_helpers.utils.enable_logging`

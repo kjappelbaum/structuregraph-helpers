@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Helpers for deleting parts of graphs."""
 from collections import defaultdict
 from copy import deepcopy

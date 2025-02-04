@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Extract subgraphs from structure graphs."""
 import warnings
 from collections import defaultdict

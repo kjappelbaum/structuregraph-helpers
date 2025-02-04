@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import numpy as np
 from pymatgen.analysis.graphs import MoleculeGraph
 from pymatgen.core import Molecule
